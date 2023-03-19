@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 18.15.x
           cache: yarn
+          cache-dependency-path: './frontend/yarn.lock'
 
       - name: List the content
         run: ls -lah
@@ -50,6 +51,7 @@ jobs:
         with:
           node-version: 18.15.x
           cache: yarn
+          cache-dependency-path: './frontend/yarn.lock'
 
       - name: List the content
         run: ls -lah
