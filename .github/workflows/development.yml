@@ -16,14 +16,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Switch to frontend folder
+        run: cd frontend
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18.15.x
           cache: yarn
-
-      - name: Switch to frontend folder
-        run: cd frontend
 
       - name: List the content
         run: ls -lah
@@ -40,14 +40,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Switch to frontend folder
+        run: cd frontend
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18.15.x
           cache: yarn
-
-      - name: Switch to frontend folder
-        run: cd frontend
 
       - name: List the content
         run: ls -lah
