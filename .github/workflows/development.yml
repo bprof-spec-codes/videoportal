@@ -1,0 +1,59 @@
+name: 'Run tests and linters on any push / pr / manual'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - develop
+      - feature/**
+  pull_request:
+
+jobs:
+  check-frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.x
+          cache: yarn
+
+      - name: Switch to frontend folder
+        run: cd frontend
+
+      - name: List the content
+        run: ls -lah
+
+      - name: Install
+        run: yarn install
+
+      - name: Run tests
+        run: yarn test
+
+  run-frontend-linters:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.x
+          cache: yarn
+
+      - name: Switch to frontend folder
+        run: cd frontend
+
+      - name: List the content
+        run: ls -lah
+
+      - name: Install
+        run: yarn install
+
+      - name: Run linters
+        run: yarn lint
