@@ -12,6 +12,10 @@ on:
 jobs:
   check-frontend-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -36,12 +40,13 @@ jobs:
 
   run-frontend-linters:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Switch to frontend folder
-        run: cd frontend
 
       - name: Setup node
         uses: actions/setup-node@v3
