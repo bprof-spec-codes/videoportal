@@ -1,0 +1,63 @@
+name: 'Run tests and linters on any push / pr / manual'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - develop
+      - feature/**
+  pull_request:
+
+jobs:
+  check-frontend-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.x
+          cache: yarn
+          cache-dependency-path: './frontend/yarn.lock'
+
+      - name: List the content
+        run: ls -lah
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Run tests
+        run: yarn test
+
+  run-frontend-linters:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.x
+          cache: yarn
+          cache-dependency-path: './frontend/yarn.lock'
+
+      - name: List the content
+        run: ls -lah
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Run linters
+        run: yarn lint
