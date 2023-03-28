@@ -7,6 +7,7 @@
 
 # Built Visual Studio Code Extensions
 *.vsix
+.vs
 
 ### ASP.NET CORE
 *.swp
