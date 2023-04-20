@@ -23,6 +23,10 @@ namespace videoPortal.Controllers
         {
             this.configuration = configuration;
         }
+        public AuthController()
+        {
+
+        }
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
