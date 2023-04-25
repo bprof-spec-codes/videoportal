@@ -1,0 +1,56 @@
+<form class="container">
+  <div class="signupHeaderContainer">
+    <h1 class="signupHeader">Sign up</h1>
+  </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Full Name</mat-label>
+    <input matInput placeholder="enter your email" [formControl]="fullNameControl" type="text" [(ngModel)]="registerData.fullName" name="fullName" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="fullNameControl.invalid">
+      {{getErrorMessage("fullName")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>User name</mat-label>
+    <input matInput placeholder="enter your user name" value="" [formControl]="usernameControl" [(ngModel)]="registerData.userName" name="userName">
+    <mat-error *ngIf="usernameControl.invalid">
+      {{getErrorMessage("userName")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="enter your email" value="" type="email" [formControl]="emailControl" [(ngModel)]="registerData.email" name="email">
+    <mat-error *ngIf="emailControl.invalid">
+      {{getErrorMessage("email")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input matInput [type]="showPassword ? 'text' : 'password'" name="password" [formControl]="passwordControl"  [(ngModel)]="registerData.password" name="password">
+    <mat-icon matSuffix (click)="togglePasswordVisibility()">
+      {{showPassword?'visibility_off':'visibility'}}
+    </mat-icon>
+    <mat-error *ngIf="passwordControl.invalid">
+      {{getErrorMessage("password")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Confirm password</mat-label>
+    <input matInput [type]="showPassword ? 'text' : 'password'" [formControl]="confirmPasswordControl" [(ngModel)]="registerData.confirmPassword" name="confirmPassword">
+    <mat-icon matSuffix (click)="togglePasswordVisibility()">
+      {{showPassword?'visibility_off':'visibility'}}
+    </mat-icon>
+    <mat-error *ngIf="confirmPasswordControl.invalid">
+      {{getErrorMessage("passwordConfirmation")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox class="example-margin" [(ngModel)]="registerData.readConsent" name="readConsent">I have read and agree to Privacy Policy.</mat-checkbox>
+
+  <mat-divider class="signupFormCloseDivider"></mat-divider>
+
+  <button mat-raised-button color="primary" (click)="register()" type="button">Register</button>
+</form>
