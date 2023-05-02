@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using videoPortal.Requests;
+using videoPortal.Responses;
 using videoPortal.Services;
 
 namespace videoPortal.Controllers
@@ -16,6 +18,34 @@ namespace videoPortal.Controllers
             this.identityService = identityService;
         }
 
-        
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserRegistrationRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = ModelState.Values.SelectMany(x => x.Errors.Select(xx => xx.ErrorMessage))
+                });
+            }
+
+            var authResponse = await identityService.RegisterAsync(request.Email, request.Password);
+
+            if (!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+
+                });
+            }
+
+            return Ok(new AuthSuccessResponse
+            {
+                Token = authResponse.Token,
+            });
+
+
+        }
     }
 }
