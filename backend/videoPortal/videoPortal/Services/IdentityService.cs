@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using videoPortal.DbContext;
 using videoPortal.Domain;
 using videoPortal.Options;
-using videoPortal.DbContext;
-using System.Data.Entity;
 
 namespace videoPortal.Services
 {
