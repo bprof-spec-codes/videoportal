@@ -47,5 +47,27 @@ namespace videoPortal.Controllers
 
 
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
+        {
+            var authResponse = await identityService.LoginAsync(request.Email, request.Password);
+
+            if (!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+
+                });
+            }
+
+            return Ok(new AuthSuccessResponse
+            {
+                Token = authResponse.Token
+
+            });
+
+        }
     }
 }
