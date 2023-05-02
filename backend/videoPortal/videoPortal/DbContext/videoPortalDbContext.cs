@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using videoPortal.Domain;
 
 namespace videoPortal.DbContext
 {
@@ -16,6 +17,7 @@ namespace videoPortal.DbContext
 
 
         }
-        
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

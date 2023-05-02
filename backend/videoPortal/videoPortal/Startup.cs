@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using videoPortal.DbContext;
 using videoPortal.Options;
+using videoPortal.Services;
 
 namespace videoPortal
 {
@@ -40,11 +41,12 @@ namespace videoPortal
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<videoPortalDbContext>()
                 .AddDefaultTokenProviders();
+
             var jwtSettings = new JwtSettings();
             Configuration.Bind(nameof(jwtSettings), jwtSettings);
             services.AddSingleton(jwtSettings);
 
-            //services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IIdentityService, IdentityService>();
 
             var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
