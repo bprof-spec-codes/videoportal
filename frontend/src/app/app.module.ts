@@ -14,12 +14,15 @@ import {SignupComponent} from "./signup/signup.component";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import {HomeComponent} from "./home/home.component";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     ReactiveFormsModule,
     MatIconModule,
     HttpClientModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,36 @@
+.jumbotron {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 700px;
+  width: auto;
+  justify-content: center;
+
+  .title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .description {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    padding: 0 0 40px 0;
+    margin: 0 0 84px 0;
+    border-bottom: 1px solid #000000;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 172px;
+  }
+}
