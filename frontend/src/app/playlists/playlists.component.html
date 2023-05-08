@@ -1,0 +1,15 @@
+<div class="playListContainer">
+  <div class="title">
+    <h1>Your playlists</h1>
+  </div>
+
+  <div class="playListLists">
+    <a class="playlistItem" *ngFor="let playlist of playLists" [routerLink]="['/playlist', playlist.id]" >
+      <img
+        class="playListPicture"
+        src="{{playlist.img}}"
+        alt="playlist logo">
+      <p>{{playlist.name}}</p>
+    </a>
+  </div>
+</div>

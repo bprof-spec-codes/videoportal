@@ -1,0 +1,42 @@
+.playListContainer {
+  margin: 25px 154px 0 154px;
+  display: flex;
+  flex-direction: column;
+
+  .title > h1 {
+    margin: auto auto 64px auto;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    max-width: 682px;
+    padding-bottom: 29px;
+    border-bottom: 1px solid black;
+  }
+
+  .playListLists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1rem;
+
+    .playlistItem {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 25px;
+      padding: 16px 25px;
+      max-width: 250px;
+      background-color: white;
+      text-decoration: none;
+      text-underline: none;
+
+      .playListPicture {
+        max-width: 200px;
+      }
+    }
+  }
+}
