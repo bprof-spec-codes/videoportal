@@ -1,0 +1,19 @@
+<div class="playListItem">
+  <mat-drawer-container class="example-container" [hasBackdrop]="hasBackdrop">
+    <mat-drawer #drawer [mode]="push">
+      <mat-list>
+        <mat-list-item *ngFor="let link of links" (click)="updateUrl(link.id)" style="cursor: pointer">
+           {{link.text}}
+        </mat-list-item>
+      </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <button mat-raised-button color="primary" (click)="drawer.toggle()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+      <div class="video" style="height: auto">
+        <iframe class="e2e-iframe-untrusted-src" width="640" height="390" [src]="videoUrl"></iframe>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

@@ -14,12 +14,22 @@ import {SignupComponent} from "./signup/signup.component";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import {HomeComponent} from "./home/home.component";
+import {MatMenuModule} from "@angular/material/menu";
+import { PlaylistsComponent } from './playlists/playlists.component';
+import { PlayListItemComponent } from './play-list-item/play-list-item.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatSelectModule} from "@angular/material/select";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
+    HomeComponent,
+    PlaylistsComponent,
+    PlayListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +43,11 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     ReactiveFormsModule,
     MatIconModule,
     HttpClientModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

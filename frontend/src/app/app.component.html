@@ -1,2 +1,8 @@
-
+<div style="background-color: white">
+  <button mat-raised-button [matMenuTriggerFor]="menu" color="primary" style="margin: 10px 0 10px 0">Menu</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/playlists">Create New Playlist</button>
+    <button mat-menu-item>Logout</button>
+  </mat-menu>
+</div>
 <router-outlet></router-outlet>
