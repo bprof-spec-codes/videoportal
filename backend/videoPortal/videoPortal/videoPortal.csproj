@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\videoPortal.Logic\videoPortal.Logic.csproj" />
+    <ProjectReference Include="..\videoPortal.Repository\videoPortal.Repository.csproj" />
   </ItemGroup>
 
 </Project>

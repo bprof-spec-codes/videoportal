@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace videoPortal.Modelz
 {
@@ -9,6 +10,7 @@ namespace videoPortal.Modelz
         public string Id { get; set; }
         [Required]
         public string Title { get; set; }
+        
         [Required]
         public string Creator { get; set; }
         [Required]
