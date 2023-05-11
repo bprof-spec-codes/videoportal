@@ -8,7 +8,7 @@ using videoPortal.Modelz;
 
 namespace videoPortal.Repository
 {
-    public class PlaylistRepository
+    public class PlaylistRepository : IPlaylistRepository
     {
         videoPortalDbContext context;
 
@@ -25,7 +25,7 @@ namespace videoPortal.Repository
 
         public IEnumerable<Playlist> Read()
         {
-            return context.playlist;
+            return context.playlist.ToList();
         }
 
         public Playlist? Read(string id)
@@ -36,7 +36,10 @@ namespace videoPortal.Repository
         public void Delete(string id)
         {
             var playlist = Read(id);
-            context.playlist.Remove(playlist);
+            if (playlist != null)
+            {
+                context.playlist.Remove(playlist);
+            }
             context.SaveChanges();
         }
     }
