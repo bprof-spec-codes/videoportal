@@ -10,7 +10,7 @@ namespace videoPortal.Modelz
         public string Id { get; set; }
         [Required]
         public string Title { get; set; }
-        
+        //[ForeignKey(nameof(IdentityUser))]
         [Required]
         public string Creator { get; set; }
         [Required]
