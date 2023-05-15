@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading.Tasks;
 using videoPortal.Modelz;
 using videoPortal.Repository;
 
@@ -18,10 +21,11 @@ namespace videoPortal.Controllers
             return View();
         }
 
-        public IActionResult CreatePlaylists(Playlists playlists)
+        public async Task<string> CreatePlaylists(Playlists playlists)
         {
+            var json = JsonSerializer.Serialize(repo);
             this.repo.Create(playlists);
-            return RedirectToAction(nameof(Index));
+            return json;
         }
 
 

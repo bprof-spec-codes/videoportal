@@ -23,9 +23,9 @@ namespace videoPortal.Repository
             context.SaveChanges();
         }
 
-        public IEnumerable<Playlists> Read()
+        public IQueryable<Playlists> Read()
         {
-            return context.playlists.ToList();
+            return context.playlists;
         }
 
         public Playlists? Read(string id)
@@ -36,11 +36,15 @@ namespace videoPortal.Repository
         public void Delete(string id)
         {
             var playlists = Read(id);
-            if (playlists != null)
+            if (playlists == null)
             {
+                throw new NullReferenceException();
+            }else
+	        {
                 context.playlists.Remove(playlists);
-            }
-            context.SaveChanges();
+                context.SaveChanges();
+	        }
+            
         }
 
     }

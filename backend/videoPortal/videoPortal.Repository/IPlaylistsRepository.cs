@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using videoPortal.Modelz;
 
 namespace videoPortal.Repository
@@ -7,7 +8,7 @@ namespace videoPortal.Repository
     {
         void Create(Playlists playlists);
         void Delete(string id);
-        IEnumerable<Playlists> Read();
+        IQueryable<Playlists> Read();
         Playlists Read(string id);
     }
 }
