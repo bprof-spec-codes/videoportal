@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using videoPortal.DbContext;
 
 namespace videoPortal.Migrations
 {
     [DbContext(typeof(videoPortalDbContext))]
-    partial class videoPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528144544_ini")]
+    partial class ini
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
