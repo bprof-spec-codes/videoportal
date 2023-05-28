@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import { ActivatedRoute, Router } from '@angular/router';
+import isUUID from 'validator/lib/isUUID';
 
 
 @Component({
@@ -7,7 +9,7 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   templateUrl: './play-list-item.component.html',
   styleUrls: ['./play-list-item.component.scss']
 })
-export class PlayListItemComponent {
+export class PlayListItemComponent implements OnInit {
   mode = 'side';
   push: any = 'push';
   hasBackdrop: any = true;
@@ -15,7 +17,7 @@ export class PlayListItemComponent {
   dangerousVideoUrl = `https://www.youtube.com/embed/${this.id}`;
   videoUrl: SafeUrl = '';
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private router: Router) {
     this.videoUrl =
       this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousVideoUrl);
   }
@@ -39,5 +41,13 @@ export class PlayListItemComponent {
     this.dangerousVideoUrl = 'https://www.youtube.com/embed/' + id;
     this.videoUrl =
       this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousVideoUrl);
+  }
+
+  ngOnInit(): void {
+    const playlistId = this.route.snapshot.paramMap.get('playlistSlug')!;
+    if (!isUUID(playlistId)) {
+      this.router.navigate(['/pagenotfound'], { skipLocationChange: true });
+      return;
+    }
   }
 }
