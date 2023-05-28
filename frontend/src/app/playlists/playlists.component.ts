@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 export type Playlist = {
   id: string;
@@ -29,4 +30,5 @@ export class PlaylistsComponent {
       name: 'Bring me the horizon playlist',
     }
   ];
+  constructor(private router: Router) {}
 }
