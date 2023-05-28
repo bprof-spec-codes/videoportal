@@ -248,7 +248,11 @@ namespace videoPortal.Migrations
 
             modelBuilder.Entity("videoPortal.Models.Playlist", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatorId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Playtime")
@@ -258,6 +262,8 @@ namespace videoPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Playlists");
                 });
@@ -320,6 +326,15 @@ namespace videoPortal.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("videoPortal.Models.Playlist", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.Navigation("Creator");
                 });
 #pragma warning restore 612, 618
         }
