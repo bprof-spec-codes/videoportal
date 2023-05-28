@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using videoPortal.DbContext;
 using videoPortal.Models;
+using videoPortal.Services;
 
 namespace videoPortal.Controllers
 {
@@ -12,10 +14,14 @@ namespace videoPortal.Controllers
     public class PlaylistController : Controller
     {
         videoPortalDbContext dbContext;
+        private readonly IIdentityService identityService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public PlaylistController(videoPortalDbContext dbContext)
+        public PlaylistController(videoPortalDbContext dbContext, IIdentityService identityService, UserManager<IdentityUser> userManager)
         {
             this.dbContext = dbContext;
+            this.identityService = identityService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -27,7 +33,7 @@ namespace videoPortal.Controllers
 
         [HttpGet]
         [Route("{id:guid}")]
-        public async Task<IActionResult> GetPlaylist([FromRoute] string id)
+        public async Task<IActionResult> GetPlaylist([FromRoute] Guid id)
         {
             var pl = await dbContext.Playlists.FindAsync(id);
 
@@ -42,23 +48,28 @@ namespace videoPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePlaylist(Playlist playlist)
         {
+            var p = this.User;
+            var user = await _userManager.GetUserAsync(p);
             var v = new Playlist()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Title = playlist.Title,
-                Creator = playlist.Creator,
+                Creator = user,
                 Playtime = playlist.Playtime
             };
 
-            await dbContext.Playlists.AddAsync(v);
-            await dbContext.SaveChangesAsync();
+            
+            
+                await dbContext.Playlists.AddAsync(v);
+                await dbContext.SaveChangesAsync();
+         
 
             return Ok(v);
         }
 
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> UpdatePlaylist([FromRoute] string id, Playlist playlist)
+        public async Task<IActionResult> UpdatePlaylist([FromRoute] Guid id, Playlist playlist)
         {
             var pl = await dbContext.Playlists.FindAsync(id);
 
@@ -79,7 +90,7 @@ namespace videoPortal.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
-        public async Task<IActionResult> DeletePlaylist([FromRoute] string id)
+        public async Task<IActionResult> DeletePlaylist([FromRoute] Guid id)
         {
             var pl = await dbContext.Playlists.FindAsync(id);
 
