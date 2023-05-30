@@ -1,5 +1,5 @@
 export class Playlist{
-    public id: string= ''
-    public img: string= ''
-    public name: string= ''
+    public id= '';
+    public img= '';
+    public name= '';
 }

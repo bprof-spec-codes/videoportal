@@ -1,4 +1,4 @@
 export class PlaylistItem{
-    public id: string= ''
-    public text: string= ''
+    public id= '';
+    public text= '';
 }
