@@ -7,6 +7,7 @@ namespace videoPortal.DbContext
     public class videoPortalDbContext : IdentityDbContext
     {
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<Song> Songs { get; set; }
         public videoPortalDbContext(DbContextOptions<videoPortalDbContext> options) : base(options)
         {
 
