@@ -4,12 +4,14 @@
   </div>
   <mat-form-field class="example-full-width">
     <mat-label>Email</mat-label>
-    <input matInput placeholder="Enter your email" value="">
+    <input matInput [(ngModel)]="this.loginModel.email" [formControl]="this.email" placeholder="Enter your email" value="">
+    <mat-error *ngIf="this.email.invalid">
+      {{getEmailErrorMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
     <mat-label>Password</mat-label>
-    <input matInput [type]="showPassword ? 'text' : 'password'" name="password">
+    <input matInput [(ngModel)]="this.loginModel.password" [type]="showPassword ? 'text' : 'password'" name="password">
     <mat-icon matSuffix (click)="togglePasswordVisibility()">
       {{showPassword?'visibility_off':'visibility'}}
     </mat-icon>
@@ -21,5 +23,5 @@
 
   <mat-divider class="signupFormCloseDivider"></mat-divider>
 
-  <button mat-raised-button color="primary">Login</button>
+  <button mat-raised-button (click)="login()" [disabled]="!checkInputs()" color="primary">Login</button>
 </form>
