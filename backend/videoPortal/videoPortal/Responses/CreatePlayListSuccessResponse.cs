@@ -10,5 +10,7 @@ namespace videoPortal.Responses
         public string UserName { get; set; }
 
         public string Playtime { get; set; }
+        
+        public string ImgUrl { get; set; }
     }
 }

@@ -15,7 +15,9 @@ namespace videoPortal.Domain
 
         public IdentityUser Creator { get; set; }
         public string Playtime { get; set; }
+
+        public string ImgUrl { get; set; }
         
-        public List<Song> Songs { get; set; }
+        public virtual List<Song> Songs { get; set; }
     }
 }

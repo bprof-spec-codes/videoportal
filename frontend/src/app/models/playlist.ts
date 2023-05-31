@@ -3,3 +3,9 @@ export class Playlist{
     public img= '';
     public name= '';
 }
+
+export class PlayListDto {
+  public id= '';
+  public url= '';
+  public title= '';
+}

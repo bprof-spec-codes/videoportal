@@ -34,11 +34,12 @@ namespace videoPortal.Controllers
             var user = await IdentityUser();
             var result = await dbContext.Playlists.Where(p => p.Creator == user).Include(p => p.Songs).Select(p => new
             {
-                Id = Guid.NewGuid(),
+                Id = p.Id,
                 Title = p.Title,
                 UserName = user.UserName,
                 Playtime = p.Playtime,
                 Songs = p.Songs,
+                Url = p.ImgUrl,
             }).ToListAsync();
             return Ok(result);
         }
@@ -48,14 +49,7 @@ namespace videoPortal.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetPlaylist([FromRoute] Guid id)
         {
-            var user = await IdentityUser();
-            var pl = await dbContext.Playlists.Where(p => p.Creator == user && p.Id == id).Include(p => p.Songs).Select(p => new
-            {
-                Id = Guid.NewGuid(),
-                Title = p.Title,
-                UserName = user.UserName,
-                Playtime = p.Playtime
-            }).ToListAsync();
+            var pl = await dbContext.Playlists.Where((p => p.Id == id)).Include(x => x.Songs).FirstOrDefaultAsync();
 
             if (pl == null)
             {
@@ -75,7 +69,8 @@ namespace videoPortal.Controllers
                 Id = Guid.NewGuid(),
                 Title = playlist.Title,
                 Creator = user,
-                Playtime = playlist.Playtime
+                Playtime = playlist.Playtime,
+                ImgUrl = playlist.ImgUrl,
             };
 
             try
@@ -94,7 +89,8 @@ namespace videoPortal.Controllers
                 Id = Guid.NewGuid(),
                 Title = playlist.Title,
                 UserName = user.UserName,
-                Playtime = playlist.Playtime
+                Playtime = playlist.Playtime,
+                ImgUrl = playlist.ImgUrl,
             };
 
             return Ok(response);
@@ -111,6 +107,7 @@ namespace videoPortal.Controllers
                 pl.Title = playlist.Title;
                 pl.Playtime = playlist.Playtime;
                 pl.Creator = playlist.Creator;
+                pl.ImgUrl = playlist.ImgUrl;
 
                 try
                 {

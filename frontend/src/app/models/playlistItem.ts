@@ -1,4 +1,5 @@
 export class PlaylistItem{
     public id= '';
-    public text= '';
+    public songs = [];
+    public title = '';
 }
