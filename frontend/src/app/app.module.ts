@@ -23,6 +23,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LogoutComponent } from './logout/logout.component';
+import { DialogComponent } from './dialog/dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { LogoutComponent } from './logout/logout.component';
     HomeComponent,
     PlaylistsComponent,
     PlayListItemComponent,
-    LogoutComponent
+    LogoutComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { LogoutComponent } from './logout/logout.component';
     MatSidenavModule,
     MatSelectModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

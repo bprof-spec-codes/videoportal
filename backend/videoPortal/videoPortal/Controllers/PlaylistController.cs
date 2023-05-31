@@ -71,6 +71,7 @@ namespace videoPortal.Controllers
                 Creator = user,
                 Playtime = playlist.Playtime,
                 ImgUrl = playlist.ImgUrl,
+                Songs = playlist.Songs,
             };
 
             try
