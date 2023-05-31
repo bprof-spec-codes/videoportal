@@ -16,7 +16,9 @@ namespace videoPortal.DbContext
         {
             base.OnModelCreating(builder);
 
-
+            builder.Entity<Song>()
+                .HasMany(e => e.Playlists)
+                .WithMany(e => e.Songs);
         }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
