@@ -45,11 +45,11 @@ export class LoginComponent {
     .subscribe(
       (success) => {
           localStorage.setItem('token', success.token)
-          localStorage.setItem('token-expiration', success.expiration.toString())
-          console.log(success)
           this.router.navigate(['/playlists'])
+          console.log(success)
         },
       (error) => {
+        console.error(error);
         this.snackBar
         .open("An error has occurred, please try again..", "Close", {duration: 5000})
       })
