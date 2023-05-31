@@ -4,7 +4,7 @@
   </div>
 
   <div class="playListLists">
-    <a class="playlistItem" *ngFor="let playlist of playLists" [routerLink]="['/playlist', playlist.id]" >
+    <a class="playlistItem" *ngFor="let playlist of demoPlaylists" [routerLink]="['/playlist', playlist.id]" >
       <img
         class="playListPicture"
         src="{{playlist.img}}"
