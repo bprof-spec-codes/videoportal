@@ -2,14 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using videoPortal.DbContext;
-using videoPortal.Models;
+using videoPortal.Domain;
 using videoPortal.Services;
 
 namespace videoPortal.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class PlaylistController : Controller
     {
@@ -27,6 +30,10 @@ namespace videoPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            var token =  Request.Headers["Authorization"].ToString().Remove(0, 7);  
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var user = await _userManager.FindByEmailAsync(jwtSecurityToken.Subject);
             return Ok(await dbContext.Playlists.ToListAsync());
         }
 

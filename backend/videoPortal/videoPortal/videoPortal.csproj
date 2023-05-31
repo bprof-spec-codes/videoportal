@@ -22,4 +22,8 @@
     <ProjectReference Include="..\videoPortal.Logic\videoPortal.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models" />
+  </ItemGroup>
+
 </Project>
