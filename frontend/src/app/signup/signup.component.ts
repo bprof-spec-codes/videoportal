@@ -3,6 +3,9 @@ import {RegisterData} from "./signup.type";
 import {FormControl, Validators} from "@angular/forms";
 import {MyErrorStateMatcher} from "../utils/MyErrorStateMatcher";
 import {SignupService} from "../../services/signup.service";
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +13,19 @@ import {SignupService} from "../../services/signup.service";
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  constructor(private signupService: SignupService) {}
+
+  router: Router
+  http: HttpClient
+  snackBar: MatSnackBar
+
+  constructor(private signupService: SignupService, http:HttpClient, snackBar:MatSnackBar,router:Router) {
+    this.http = http
+    this.snackBar = snackBar
+    this.router = router
+  }
+
+
+
 
   public showPassword = false;
 
@@ -65,6 +80,20 @@ export class SignupComponent {
   }
 
   public register(): void {
-    this.signupService.register(this.registerData);
+    //this.signupService.register(this.registerData);
+    this.http.post("https://localhost:5001/api/Identity/register", this.registerData)
+    .subscribe(
+      (success) => {
+        this.snackBar
+        .open("Registration was successful!", "Close", {duration:5000})
+        .afterDismissed()
+        .subscribe(() => {
+          this.router.navigate(['/login'])
+        })
+      },
+      (error) => {
+        this.snackBar
+        .open("An error has occurred, please try again..", "Close", {duration: 5000})
+      })
   }
 }

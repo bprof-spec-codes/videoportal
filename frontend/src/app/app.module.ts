@@ -21,6 +21,8 @@ import { PlayListItemComponent } from './play-list-item/play-list-item.component
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {MatListModule} from "@angular/material/list";
     SignupComponent,
     HomeComponent,
     PlaylistsComponent,
-    PlayListItemComponent
+    PlayListItemComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import {MatListModule} from "@angular/material/list";
     MatMenuModule,
     MatSidenavModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
