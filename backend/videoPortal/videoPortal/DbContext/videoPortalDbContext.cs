@@ -7,6 +7,7 @@ namespace videoPortal.DbContext
     public class videoPortalDbContext : IdentityDbContext
     {
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<Song> Songs { get; set; }
         public videoPortalDbContext(DbContextOptions<videoPortalDbContext> options) : base(options)
         {
 
@@ -16,7 +17,9 @@ namespace videoPortal.DbContext
         {
             base.OnModelCreating(builder);
 
-
+            builder.Entity<Song>()
+                .HasMany(e => e.Playlists)
+                .WithMany(e => e.Songs);
         }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }

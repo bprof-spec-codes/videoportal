@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Playlist } from '../models/playlist';
+import {Playlist, PlayListDto} from '../models/playlist';
 
 // export type Playlist = {
 //   id: string;
@@ -42,14 +42,19 @@ export class PlaylistsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
     this.http
-    .get<Array<Playlist>>('backend-api-url')
+    .get<Array<PlayListDto>>('https://localhost:5001/api/Playlist', {
+      headers: {
+        "authorization": `bearer ${token}`
+      }
+    })
     .subscribe(response => {
       response.map(x =>{
         let p = new Playlist()
         p.id = x.id
-        p.img = x.img
-        p.name = x.name
+        p.img = x.url
+        p.name = x.title
         this.playlists.push(p)
       })
       console.log(this.playlists)

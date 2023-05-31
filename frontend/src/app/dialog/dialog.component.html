@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Create playlist</h1>
+<div mat-dialog-content >
+  <form class="container" style="display: flex; flex-direction: column">
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="enter movie Title" type="text" name="title" [(ngModel)]="playlistData.title">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Play time</mat-label>
+      <input matInput placeholder="enter movie Title" type="text" name="playTime" [(ngModel)]="playlistData.playTime">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Img</mat-label>
+      <input matInput placeholder="enter movie Director" type="text" name="img" [(ngModel)]="playlistData.img">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Song List</mat-label>
+      <textarea matInput placeholder="enter movie Director" type="text" name="song" [(ngModel)]="playlistData.song">
+      </textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="button" (click)="addPlaylist()">Create playlist</button>
+  </form>
+</div>

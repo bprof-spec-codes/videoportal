@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using videoPortal.DbContext;
 
 namespace videoPortal.Migrations
 {
     [DbContext(typeof(videoPortalDbContext))]
-    partial class videoPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230531203330_CreateSongPlaylistRelation")]
+    partial class CreateSongPlaylistRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,9 +241,6 @@ namespace videoPortal.Migrations
                     b.Property<string>("CreatorId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Playtime")
                         .HasColumnType("nvarchar(max)");
 
@@ -300,7 +299,7 @@ namespace videoPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Songs");
+                    b.ToTable("Song");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

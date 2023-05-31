@@ -2,8 +2,8 @@
   <mat-drawer-container class="example-container" [hasBackdrop]="hasBackdrop">
     <mat-drawer #drawer [mode]="push">
       <mat-list>
-        <mat-list-item *ngFor="let link of links" (click)="updateUrl(link.id)" style="cursor: pointer">
-           {{link.text}}
+        <mat-list-item *ngFor="let song of songs" (click)="updateUrl(song.link)" style="cursor: pointer">
+           {{song.title}}
         </mat-list-item>
       </mat-list>
     </mat-drawer>

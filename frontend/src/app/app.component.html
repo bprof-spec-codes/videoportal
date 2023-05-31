@@ -3,7 +3,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/register" *ngIf="!this.api.isLoggedIn()">Register</button>
     <button mat-menu-item routerLink="/login" *ngIf="!this.api.isLoggedIn()">Login</button>
-    <button mat-menu-item *ngIf="this.api.isLoggedIn()">Create new playlist</button>
+    <button mat-menu-item *ngIf="this.api.isLoggedIn()" (click)="openCreateDialog()">Create new playlist</button>
     <button mat-menu-item routerLink="/playlists" *ngIf="this.api.isLoggedIn()">My playlists</button>
     <button mat-menu-item routerLink="/logout" *ngIf="this.api.isLoggedIn()">Logout</button>
   </mat-menu>

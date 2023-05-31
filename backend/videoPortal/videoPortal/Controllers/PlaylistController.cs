@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using videoPortal.DbContext;
 using videoPortal.Domain;
+using videoPortal.Requests;
+using videoPortal.Responses;
 using videoPortal.Services;
 
 namespace videoPortal.Controllers
@@ -17,24 +20,28 @@ namespace videoPortal.Controllers
     public class PlaylistController : Controller
     {
         videoPortalDbContext dbContext;
-        private readonly IIdentityService identityService;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public PlaylistController(videoPortalDbContext dbContext, IIdentityService identityService, UserManager<IdentityUser> userManager)
+        public PlaylistController(videoPortalDbContext dbContext, UserManager<IdentityUser> userManager)
         {
             this.dbContext = dbContext;
-            this.identityService = identityService;
             _userManager = userManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var token =  Request.Headers["Authorization"].ToString().Remove(0, 7);  
-            var handler = new JwtSecurityTokenHandler();
-            var jwtSecurityToken = handler.ReadJwtToken(token);
-            var user = await _userManager.FindByEmailAsync(jwtSecurityToken.Subject);
-            return Ok(await dbContext.Playlists.ToListAsync());
+            var user = await IdentityUser();
+            var result = await dbContext.Playlists.Where(p => p.Creator == user).Include(p => p.Songs).Select(p => new
+            {
+                Id = p.Id,
+                Title = p.Title,
+                UserName = user.UserName,
+                Playtime = p.Playtime,
+                Songs = p.Songs,
+                Url = p.ImgUrl,
+            }).ToListAsync();
+            return Ok(result);
         }
 
 
@@ -42,7 +49,7 @@ namespace videoPortal.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetPlaylist([FromRoute] Guid id)
         {
-            var pl = await dbContext.Playlists.FindAsync(id);
+            var pl = await dbContext.Playlists.Where((p => p.Id == id)).Include(x => x.Songs).FirstOrDefaultAsync();
 
             if (pl == null)
             {
@@ -53,25 +60,41 @@ namespace videoPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlaylist(Playlist playlist)
+        public async Task<IActionResult> CreatePlaylist(CreatePlaylistRequest playlist)
         {
-            var p = this.User;
-            var user = await _userManager.GetUserAsync(p);
+            var user = await IdentityUser();
+
             var v = new Playlist()
             {
                 Id = Guid.NewGuid(),
                 Title = playlist.Title,
                 Creator = user,
-                Playtime = playlist.Playtime
+                Playtime = playlist.Playtime,
+                ImgUrl = playlist.ImgUrl,
+                Songs = playlist.Songs,
             };
 
-            
-            
+            try
+            {
                 await dbContext.Playlists.AddAsync(v);
                 await dbContext.SaveChangesAsync();
-         
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
-            return Ok(v);
+            var response = new CreatePlayListSuccessResponse
+            {
+                Id = Guid.NewGuid(),
+                Title = playlist.Title,
+                UserName = user.UserName,
+                Playtime = playlist.Playtime,
+                ImgUrl = playlist.ImgUrl,
+            };
+
+            return Ok(response);
         }
 
         [HttpPut]
@@ -85,8 +108,17 @@ namespace videoPortal.Controllers
                 pl.Title = playlist.Title;
                 pl.Playtime = playlist.Playtime;
                 pl.Creator = playlist.Creator;
+                pl.ImgUrl = playlist.ImgUrl;
 
-                await dbContext.SaveChangesAsync();
+                try
+                {
+                    await dbContext.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
 
                 return Ok(pl);
             }
@@ -103,12 +135,30 @@ namespace videoPortal.Controllers
 
             if (pl != null)
             {
-                dbContext.Remove(pl);
-                await dbContext.SaveChangesAsync();
+                try
+                {
+                    dbContext.Remove(pl);
+                    await dbContext.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+
                 return Ok(pl);
             }
 
             return NotFound();
+        }
+        
+        private async Task<IdentityUser> IdentityUser()
+        {
+            var token = Request.Headers["Authorization"].ToString().Remove(0, 7);
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var user = await _userManager.FindByEmailAsync(jwtSecurityToken.Subject);
+            return user;
         }
 
     }

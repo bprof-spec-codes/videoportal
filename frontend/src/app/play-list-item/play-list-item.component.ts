@@ -4,6 +4,7 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import { ActivatedRoute, Router } from '@angular/router';
 import isUUID from 'validator/lib/isUUID';
 import { PlaylistItem } from '../models/playlistItem';
+import {Song} from "../models/song";
 
 
 @Component({
@@ -23,7 +24,7 @@ export class PlayListItemComponent implements OnInit {
     this.videoUrl =
       this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousVideoUrl);
       this.http = http;
-    this.links = [];
+    this.songs = [];
   }
 
   demoLinks: any[] = [
@@ -41,7 +42,7 @@ export class PlayListItemComponent implements OnInit {
     }
   ];
   http:HttpClient
-  links: Array<PlaylistItem>
+  songs: Array<Song>
 
   updateUrl(id: string) {
     this.dangerousVideoUrl = 'https://www.youtube.com/embed/' + id;
@@ -56,16 +57,18 @@ export class PlayListItemComponent implements OnInit {
       return;
     }
 
+    const token = localStorage.getItem('token');
+
     this.http
-    .get<Array<PlaylistItem>>('backend-api-url')
+    .get<Array<PlaylistItem>>(`https://localhost:5001/api/Playlist`, {
+      headers: {
+        "authorization": `bearer ${token}`
+      }
+    })
     .subscribe(response => {
-      response.map(x =>{
-        let p = new PlaylistItem()
-        p.id = x.id
-        p.text = x.text
-        this.links.push(p)
-      })
-      console.log(this.links)
+      const result = response.find((oneItem) => oneItem.id === playlistId) as any;
+      this.songs = result.songs;
+      console.log(this.songs);
     })
   }
 }
