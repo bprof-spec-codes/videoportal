@@ -41,7 +41,7 @@ export class LoginComponent {
   }
 
   public login(): void {
-    this.http.post<TokenModel>("https://localhost:44319/api/Identity/login", this.loginModel)
+    this.http.post<TokenModel>("https://localhost:5001/api/Identity/login", this.loginModel)
     .subscribe(
       (success) => {
           localStorage.setItem('token', success.token)

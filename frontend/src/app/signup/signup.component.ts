@@ -81,7 +81,7 @@ export class SignupComponent {
 
   public register(): void {
     //this.signupService.register(this.registerData);
-    this.http.put("https://localhost:44319/api/Identity/register", this.registerData)
+    this.http.post("https://localhost:5001/api/Identity/register", this.registerData)
     .subscribe(
       (success) => {
         this.snackBar
