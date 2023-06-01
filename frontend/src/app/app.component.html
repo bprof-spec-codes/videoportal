@@ -1,11 +1,23 @@
 <div style="background-color: white">
-  <button mat-raised-button [matMenuTriggerFor]="menu" color="primary" style="margin: 10px 0 10px 0">Menu</button>
+  <button mat-raised-button [matMenuTriggerFor]="menu" color="primary" style="margin: 10px 0 10px 0">
+   <mat-icon aria-hidden="false" aria-label="Menu icon" fontIcon="menu"></mat-icon> Menu
+  </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/register" *ngIf="!this.api.isLoggedIn()">Register</button>
-    <button mat-menu-item routerLink="/login" *ngIf="!this.api.isLoggedIn()">Login</button>
-    <button mat-menu-item *ngIf="this.api.isLoggedIn()" (click)="openCreateDialog()">Create new playlist</button>
-    <button mat-menu-item routerLink="/playlists" *ngIf="this.api.isLoggedIn()">My playlists</button>
-    <button mat-menu-item routerLink="/logout" *ngIf="this.api.isLoggedIn()">Logout</button>
+    <button mat-menu-item routerLink="/register" *ngIf="!this.api.isLoggedIn()">
+      <mat-icon aria-hidden="false" aria-label="SignUp icon" fontIcon="power_settings_new"></mat-icon>Register
+    </button>
+    <button mat-menu-item routerLink="/login" *ngIf="!this.api.isLoggedIn()">
+      <mat-icon aria-hidden="false" aria-label="Login icon" fontIcon="assignment_ind"></mat-icon>Login
+    </button>
+    <button mat-menu-item *ngIf="this.api.isLoggedIn()" (click)="openCreateDialog()">
+      <mat-icon aria-hidden="false" aria-label="AddPlaylist icon" fontIcon="playlist_add"></mat-icon>Create new playlist
+    </button>
+    <button mat-menu-item routerLink="/playlists" *ngIf="this.api.isLoggedIn()">
+      <mat-icon aria-hidden="false" aria-label="Playlist icon" fontIcon="playlist_play"></mat-icon>My playlists
+    </button>
+    <button mat-menu-item routerLink="/logout" *ngIf="this.api.isLoggedIn()">
+      <mat-icon aria-hidden="false" aria-label="Login icon" fontIcon="remove_circle_outline"></mat-icon>Logout
+    </button>
   </mat-menu>
 </div>
 <router-outlet></router-outlet>
